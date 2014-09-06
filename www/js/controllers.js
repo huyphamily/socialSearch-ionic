@@ -11,9 +11,55 @@ angular.module('starter.controllers', [])
     $scope.modal = modal;
   });
 
+  $ionicModal.fromTemplateUrl('templates/twitterCard.html', function(modal) {
+    $scope.twitterModal = modal;
+  }, {
+    scope: $scope
+  });
+
+  $ionicModal.fromTemplateUrl('templates/instagramCard.html', function(modal) {
+    $scope.instagramModal = modal;
+  }, {
+    scope: $scope
+  });
+
+  $ionicModal.fromTemplateUrl('templates/redditCard.html', function(modal) {
+    $scope.redditModal = modal;
+  }, {
+    scope: $scope
+  });
+
+  $scope.twitterResult = function(post) {
+    console.log(post);
+    $scope.item = post;
+    $scope.twitterModal.show();
+  };
+
+  $scope.instagramResult = function(post) {
+    console.log(post);
+    $scope.item = post;
+    $scope.instagramModal.show();
+  };
+  $scope.redditResult = function(post) {
+    console.log(post);
+    $scope.item = post;
+    $scope.redditModal.show();
+  };
+
   $scope.closeFilter = function() {
     $scope.modal.hide();
-    $state.go($state.current, {}, {reload: true});
+  };
+
+  $scope.closeTweet = function() {
+    $scope.twitterModal.hide();
+  };
+
+  $scope.closeInstagram = function() {
+    $scope.instagramModal.hide();
+  };
+
+  $scope.closePost = function() {
+    $scope.redditModal.hide();
   };
 
   $scope.filter = function() {
@@ -26,6 +72,19 @@ angular.module('starter.controllers', [])
 
   $scope.getResults = function() {
     $scope.results = queryFactory.getResults();
+    $scope.results.forEach(function(item) {
+      if (item.loc === 'reddit') {
+        item.click = $scope.redditResult;
+      }
+
+      if (item.loc === 'twitter') {
+        item.click = $scope.twitterResult;
+      }
+
+      if (item.loc === 'instagram') {
+        item.click = $scope.instagramResult;
+      }
+    });
   };
 })
 .factory('queryFactory', ['$http', '$state', function($http, $state) {
@@ -42,7 +101,6 @@ angular.module('starter.controllers', [])
   }
 
   function timeAgo(unixT) {
-
     var d = new Date();
     var nowTs = Math.floor(d.getTime()/1000);
     var seconds = nowTs-unixT;
@@ -82,6 +140,17 @@ angular.module('starter.controllers', [])
               }
               post.date = timeAgo(post.date);
             }
+
+            if (key === 'twitter') {
+              var d = new Date(post.data);
+              post.date = d.toLocaleString();
+              post.id = post.link.replace(/.*\/statuses\//, '');
+            }
+
+            if (key === 'instagram') {
+              var e = new Date(post.date * 1000);
+              post.date = e.toLocaleString();
+            }
             res.push(post);
           });
         }
@@ -97,5 +166,36 @@ angular.module('starter.controllers', [])
     getResults: function() {
       return results;
     }
+  };
+}])
+.factory('filterFactory', [function() {
+  var reddit = true;
+  var instagram = true;
+  var twitter =  true;
+
+  return {
+    getReddit: function () {
+      return reddit;
+    },
+
+    getInstagram: function () {
+      return instagram;
+    },
+
+    getTwitter: function () {
+      return twitter;
+    },
+
+    setReddit: function (input) {
+      reddit = input;
+    },
+
+    setInstagram: function (input) {
+      instagram = input;
+    },
+
+    setTwitter: function (input) {
+      twitter = input;
+    },
   };
 }]);

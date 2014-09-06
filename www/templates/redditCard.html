@@ -1,0 +1,25 @@
+<div class="modal">
+  <ion-header-bar>
+    <h1 class="title">Post</h1>
+    <div class="buttons">
+      <button class="button button-clear" ng-click="closePost()">Close</button>
+    </div>
+  </ion-header-bar>
+  <ion-content>
+    <div class="list card">
+      <div class="item item-avatar">
+        <img src="img/{{item.loc}}.png">
+        <h2>{{item.author}}</h2>
+        <p>{{item.date}}</p>
+      </div>
+
+      <div class="item item-body">
+         <a href="{{item.link}}">{{item.title}}</a>
+         <p>
+          <a href="#" class="subdued">{{item.score}} points</a>
+          <a href="http://www.reddit.com/r/{{item.subreddit}}" class="subdued">/r/{{item.subreddit}}</a>
+        </p>
+      </div>
+    </div>
+  </ion-content>
+</div>

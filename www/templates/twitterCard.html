@@ -1,0 +1,40 @@
+<div class="modal" ng-model="item">
+  <ion-header-bar>
+    <h1 class="title">Tweet</h1>
+    <div class="buttons">
+      <button class="button button-clear" ng-click="closeTweet()">Close</button>
+    </div>
+  </ion-header-bar>
+  <ion-content>
+    <div class="list card">
+      <div class="item item-avatar">
+        <img src="img/{{item.loc}}.png">
+        <h2><a href="http://twitter.com/{{item.user}}">@{{item.user}}</a></h2>
+        <p>{{item.date}}</p>
+      </div>
+
+      <div class="item item-body">
+        <p>
+          {{item.text}}
+        </p>
+
+        <a href="{{item.link}}">View on Twitter</a>
+      </div>
+
+      <div class="item tabs tabs-secondary tabs-icon-left">
+        <a class="tab-item" href="https://twitter.com/intent/tweet?in_reply_to={{item.id}}">
+          <i class="icon ion-reply"></i>
+          Reply
+        </a>
+        <a class="tab-item" href="https://twitter.com/intent/retweet?tweet_id={{item.id}}">
+          <i class="icon ion-share"></i>
+          Retweet
+        </a>
+        <a class="tab-item" href="https://twitter.com/intent/favorite?tweet_id={{item.id}}">
+          <i class="icon ion-star"></i>
+          Favorite
+        </a>
+      </div>
+    </div>
+  </ion-content>
+</div>

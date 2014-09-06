@@ -1,0 +1,23 @@
+<div class="modal" ng-model="post">
+  <ion-header-bar>
+    <h1 class="title">Picture</h1>
+    <div class="buttons">
+      <button class="button button-clear" ng-click="closeInstagram()">Close</button>
+    </div>
+  </ion-header-bar>
+  <ion-content>
+    <div class="list card">
+      <div class="item item-avatar">
+        <img src="{{item.proPic}}">
+        <h2>{{item.user}}</h2>
+        <p>{{item.date}}</p>
+      </div>
+
+      <div class="item item-body">
+        <a href="{{item.link}}">
+          <img class="full-image" src="{{item.picture}}">
+        </a>
+      </div>
+    </div>
+  </ion-content>
+</div>
