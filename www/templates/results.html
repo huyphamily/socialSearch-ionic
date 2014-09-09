@@ -7,11 +7,11 @@
       <a ng-repeat="post in results" class="item item-avatar" ng-click="post.click(post)" ng-if="filters[post.loc] === true">
           <img ng-src="img/{{post.loc}}.png" ng-if="post.loc == 'twitter' || post.loc === 'reddit'">
           <img ng-src="{{post.picture}}" ng-if="post.loc == 'instagram'">
-        <div ng-if="post.loc === 'twitter' && filters.twitter === true">
+        <div ng-if="post.loc === 'twitter'">
           <h2>{{post.text}}</h2>
           <p>@{{post.user}}</p>
         </div>
-        <div ng-if="post.loc === 'reddit' && filters.reddit === true">
+        <div ng-if="post.loc === 'reddit'">
           <h2>{{post.title}}</h2>
           <p>{{post.author}}</p>
         </div>
