@@ -3,7 +3,11 @@
     <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
   </ion-nav-buttons>
   <ion-content class="has-header">
-    <form ng-submit="search(query)">
+    <h1 style="text-align: center; margin-top: 20px">Social Search</h1>
+    <p style="text-align: center;">
+      Search reddit, instagram and twitter!
+    </p>
+    <form ng-submit="search(query)" style="margin-top: 10px">
         <label class="item item-input">
           <i class="icon ion-search placeholder-icon"></i>
           <input type="text" placeholder="Search" ng-model="query">

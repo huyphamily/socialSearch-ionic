@@ -4,14 +4,14 @@
   </ion-nav-buttons>
   <ion-content class="has-header" ng-init="getResults()">
     <div class="list">
-      <a ng-repeat="post in results" class="item item-avatar" ng-click="post.click(post)">
+      <a ng-repeat="post in results" class="item item-avatar" ng-click="post.click(post)" ng-if="filters[post.loc] === true">
           <img ng-src="img/{{post.loc}}.png" ng-if="post.loc == 'twitter' || post.loc === 'reddit'">
           <img ng-src="{{post.picture}}" ng-if="post.loc == 'instagram'">
-        <div ng-if="post.loc === 'twitter'">
+        <div ng-if="post.loc === 'twitter' && filters.twitter === true">
           <h2>{{post.text}}</h2>
           <p>@{{post.user}}</p>
         </div>
-        <div ng-if="post.loc === 'reddit'">
+        <div ng-if="post.loc === 'reddit' && filters.reddit === true">
           <h2>{{post.title}}</h2>
           <p>{{post.author}}</p>
         </div>

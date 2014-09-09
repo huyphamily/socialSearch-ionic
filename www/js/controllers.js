@@ -1,10 +1,9 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $http, $state, queryFactory) {
-  $scope.redditFilter = true;
-  $scope.instagramFilter = true;
-  $scope.twitterFilter = true;
+.controller('AppCtrl', function($scope, $ionicModal, $http, $state, queryFactory, filter) {
+  $scope.filters = filter;
 
+  // Loads all the modals
   $ionicModal.fromTemplateUrl('templates/filter.html', {
     scope: $scope
   }).then(function(modal) {
@@ -29,23 +28,25 @@ angular.module('starter.controllers', [])
     scope: $scope
   });
 
+  // Opens Twitter card
   $scope.twitterResult = function(post) {
-    console.log(post);
     $scope.item = post;
     $scope.twitterModal.show();
   };
 
+  // Opens Instagram card
   $scope.instagramResult = function(post) {
-    console.log(post);
     $scope.item = post;
     $scope.instagramModal.show();
   };
+
+  // Opens Reddit card
   $scope.redditResult = function(post) {
-    console.log(post);
     $scope.item = post;
     $scope.redditModal.show();
   };
 
+  // Following functions close their respective modals
   $scope.closeFilter = function() {
     $scope.modal.hide();
   };
@@ -62,16 +63,21 @@ angular.module('starter.controllers', [])
     $scope.redditModal.hide();
   };
 
+  // Opens filter modal
   $scope.filter = function() {
     $scope.modal.show();
   };
 
+  // Performs the search API call closure variable
   $scope.search = function(query) {
     queryFactory.getQuery(query);
   };
 
+  // Get's results from previous API call and set's them to a scope variable
   $scope.getResults = function() {
     $scope.results = queryFactory.getResults();
+
+    // Assigns a property on each item to
     $scope.results.forEach(function(item) {
       if (item.loc === 'reddit') {
         item.click = $scope.redditResult;
@@ -168,34 +174,10 @@ angular.module('starter.controllers', [])
     }
   };
 }])
-.factory('filterFactory', [function() {
-  var reddit = true;
-  var instagram = true;
-  var twitter =  true;
-
+.factory('filter', function() {
   return {
-    getReddit: function () {
-      return reddit;
-    },
-
-    getInstagram: function () {
-      return instagram;
-    },
-
-    getTwitter: function () {
-      return twitter;
-    },
-
-    setReddit: function (input) {
-      reddit = input;
-    },
-
-    setInstagram: function (input) {
-      instagram = input;
-    },
-
-    setTwitter: function (input) {
-      twitter = input;
-    },
+    reddit: true,
+    instagram: true,
+    twitter: true
   };
-}]);
+});
